@@ -11,9 +11,11 @@ from scipy.stats import norm
 from difflib import SequenceMatcher
 from multiprocessing.pool import ThreadPool
 
+# similarity ratio between two strings
 def similar(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
+# cumulative distribution function of the standard normal distribution
 def normCdf(x):
     return norm.cdf(x)
 
@@ -132,12 +134,12 @@ class GPT2PPL:
 
         torch.manual_seed(0)
         np.random.seed(0)
-        start_time = time.time()
+        # start_time = time.time()
         out_sentences = []
         pool = ThreadPool(remaining//n)
         out_sentences = pool.map(self.getGeneratedTexts, [(original_text, n) for _ in range(remaining//n)])
         out_sentences = list(itertools.chain.from_iterable(out_sentences))
-        end_time = time.time()
+        # end_time = time.time()
 
         return out_sentences
 
